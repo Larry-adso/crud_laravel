@@ -43,6 +43,8 @@
         </div>
     </div>
 </div>
+<br>
+<br>
 
 @if(Session::has('mensaje'))
     {{Session::get('mensaje')}}
@@ -51,12 +53,13 @@
 <table class="table custom-table">
     <thead class="thead-light">
         <tr>
-            <th>#</th>
-            <th>Foto</th>
+            <th>Documento</th>
             <th>Nombre</th>
             <th>P. Apellido</th>
             <th>S. Apellido</th>
             <th>Correo</th>
+            <th>Foto</th>
+
             <th>Acción</th>
         </tr>
     </thead>
@@ -64,17 +67,18 @@
         @foreach ($estudiante as $dato)
         <tr>
             <td>{{$dato->id}}</td>
-            <td><img src="{{asset('storage').'/' .$dato->foto}}" alt="" width="100%" height="100%"></td>
             <td>{{$dato->nombre}}</td>
             <td>{{$dato->p_apel}}</td>
             <td>{{$dato->s_apel}}</td>
             <td>{{$dato->correo}}</td>
+            <td><img src="{{asset('storage').'/' .$dato->foto}}" alt="" style="max-width: 100px; max-height: 100px;" ></td>
+
             <td>
-                <a href="{{url('/estudiante/'.$dato->id.'/edit')}}">Editar</a> |
+                <a href="{{ url('/estudiante/'.$dato->id.'/edit') }}" class="btn btn-primary btn-sm">Update</a> |
                 <form action="{{url('/estudiante/'.$dato->id)}}" method="POST">
                     @csrf
                     {{method_field('DELETE')}}
-                    <input type="submit" onclick="return confirm('¿Desea Eliminar?')" value="Eliminar">
+                    <input type="submit" onclick="return confirm('¿Desea Eliminar?')" value="Eliminar" class="btn btn-danger">
                 </form>
             </td>
         </tr>
