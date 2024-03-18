@@ -28,6 +28,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('
 
 //Route::resource('estudiante', EstudianteController::class);
 
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -43,8 +44,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+*/
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-*/
+
+Route::group(['middleware' => 'auth'], function () {
+    route::get('/', [EstudianteController::class, 'index'])->name('home');
+});

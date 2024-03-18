@@ -1,7 +1,7 @@
 
 
       <form method="POST" action="{{url('/estudiante')}}" enctype="multipart/form-data">
-    @csrf
+    @csrf 
     @include('estudiante.form', ['modo'=>'Guardar']);
     </form>
 
