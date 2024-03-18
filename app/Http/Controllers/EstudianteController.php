@@ -14,7 +14,7 @@ class EstudianteController extends Controller
     public function index()
     {
         $listado['estudiante'] = estudiante::paginate(5);
-        return view('estudiante.index', $listado);  
+        return view('estudiante.index', $listado);
     }
 
     /**
@@ -30,16 +30,16 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
-        $datosest = request()->except('_token');
-        if ($request->hasFile('foto')){
-            $datosest['foto']=$request->file('foto')->store('uploads', 'public');
-            }
-        estudiante::insert($datosest);
-     //   return response()->json($datosest);
-    return redirect('estudiante')->with('mensaje','Registro ingresado con exito');
+        $datosest = $request->except('_token');
+
+        if ($request->hasFile('foto')) {
+            $datosest['foto'] = $request->file('foto')->store('uploads', 'public');
+        }
+
+        Estudiante::insert($datosest); // Usar create en lugar de insert
+        return redirect('estudiante')->with('mensaje', 'Registro ingresado con éxito');
     }
 
-    
     /**
      * Display the specified resource.
      */
@@ -61,13 +61,13 @@ class EstudianteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-        {
-        $dato = request()->except(['_token','_method']);
+    {
+        $dato = request()->except(['_token', '_method']);
 
-        if($request->hasFile('foto')){
-            $dato['foto']=$request->file('foto')->store('uploads','public');
+        if ($request->hasFile('foto')) {
+            $dato['foto'] = $request->file('foto')->store('uploads', 'public');
         }
-        estudiante::where('id','=',$id)->update($dato);
+        estudiante::where('id', '=', $id)->update($dato);
 
         $up_est = estudiante::findOrFail($id);
         return view('estudiante.update', compact('up_est'));
@@ -78,12 +78,11 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-      $estudiante = estudiante::findOrfail($id);
+        $estudiante = estudiante::findOrfail($id);
 
-     if(Storage::delete('public/'.$estudiante->foto)){
-        estudiante::destroy($id);
-     }
-     return redirect('estudiante')->with('mensaje','Registro eliminado exitosamente');   
-
+        if (Storage::delete('public/' . $estudiante->foto)) {
+            estudiante::destroy($id);
+        }
+        return redirect('estudiante')->with('mensaje', 'Registro eliminado exitosamente');
     }
 }

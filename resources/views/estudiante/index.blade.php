@@ -31,6 +31,7 @@
             <form method="POST" action="{{url('/estudiante')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
+                    <div class="form-group col-md-4"><input type="text" name="id" id="id" class="form-control border border-dark mb-3 custom-form-control" placeholder="Documento"></div>
                     <div class="form-group col-md-4"><input type="text" name="nombre" id="nombre" class="form-control border border-dark mb-3 custom-form-control" placeholder="Nombres"></div>
                     <div class="form-group col-md-4"><input type="text" name="p_apel" id="p_apel" class="form-control border border-dark mb-3 custom-form-control" placeholder="Primer apellido"></div>
                     <div class="form-group col-md-4"><input type="text" name="s_apel" id="s_apel" class="form-control border border-dark mb-3 custom-form-control" placeholder="Segundo apellido"></div>
@@ -63,7 +64,7 @@
         @foreach ($estudiante as $dato)
         <tr>
             <td>{{$dato->id}}</td>
-            <td><img src="{{asset('storage').'/' .$dato->foto}}" alt="" width="20%" height="20%"></td>
+            <td><img src="{{asset('storage').'/' .$dato->foto}}" alt="" width="100%" height="100%"></td>
             <td>{{$dato->nombre}}</td>
             <td>{{$dato->p_apel}}</td>
             <td>{{$dato->s_apel}}</td>

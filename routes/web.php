@@ -23,32 +23,26 @@ Route::get('estudiante/create', [EstudianteController::class,'create']);
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
-
+Route::get('/', function () {
+    return view('welcome');
+});
 */
 
-//Route::resource('estudiante', EstudianteController::class);
-
+Route::resource('estudiante', EstudianteController::class)->middleware('auth');
+Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-*/
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+//ruta para cuando se loguee busque el index de estudiante
 Route::group(['middleware' => 'auth'], function () {
-    route::get('/', [EstudianteController::class, 'index'])->name('home');
+    Route::get('/', [EstudianteController::class, 'index'])->name('home');
 });
