@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\EstudianteController;
 use Illuminate\Support\Facades\Route;
@@ -14,20 +15,36 @@ use Illuminate\Support\Facades\Route;
 |
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/estudiante', function () {
    return view('estudiante.index');
 });
 Route::get('estudiante/create', [EstudianteController::class,'create']);
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
 */
-Route::resource('estudiante', EstudianteController::class);
+
+//Route::resource('estudiante', EstudianteController::class);
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+/*
+Route::get('/', function () {
+    return view('welcome');
+});
+
 
 
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+*/
